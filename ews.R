@@ -4,6 +4,7 @@ library(tidyverse)
 library(data.table)
 library(factoextra)
 library(FactoMineR)
+library(ggplot2)
 
 #load data obligasi
 data_obligasi <- read_excel("Data_Obligasi.xlsx")
@@ -35,4 +36,15 @@ fff<-as.data.frame(as.matrix(fff))
 general_lin<-glm(fff$rating~
                    fff$Dim.1+fff$Dim.2+fff$Dim.3+fff$Dim.4+fff$Dim.5)
 summary(general_lin)
-``
+
+predicted_category<-ceiling(general_lin[["fitted.values"]])
+
+df <- data.frame(data_obligasi,predicted_category)
+df<-df[order(-df$Cod_2), ]
+
+#ggplot(df)
+
+ggplot(data=df,aes(x=Cod_2,y=predicted_category))+
+  geom_point()
++
+  labs(y="Transaction count")
