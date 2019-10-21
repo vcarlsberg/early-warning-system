@@ -40,10 +40,18 @@ summary(general_lin)
 
 predicted_category<-ceiling(general_lin[["fitted.values"]])
 
+
 df <- data.frame(data_obligasi,predicted_category)
 df<-df[order(-df$Cod_2), ]
 
+
+
 rownames(df) <- NULL
+
+#vvv<-as.data.frame(c(1:103))
+#colnames(vvv)<-c("data_ke")
+#df <- data.frame(data_obligasi,predicted_category,vvv)
+
 #ggplot(df)
 
 ggplot(data=df,aes(x=Cod_2,y=predicted_category))+
@@ -52,6 +60,8 @@ ggplot(data=df,aes(x=Cod_2,y=predicted_category))+
 ggplot(data = mtcars, mapping = aes(x = wt, y = mpg, color = as.factor(cyl))) + 
   geom_point()
 
-ggplot(data = df, mapping = aes(x = BONDS.NO., y = predicted_category, color = as.factor(predicted_category))) + 
+ggg<-filter(df,Cod_2==5)
+ggplot(data = df, mapping = aes(x = BONDS.NO., y = predicted_category, 
+                                color = as.factor(Cod_2))) + 
   geom_point()
 
