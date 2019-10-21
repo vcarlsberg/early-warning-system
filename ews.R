@@ -5,6 +5,7 @@ library(data.table)
 library(factoextra)
 library(FactoMineR)
 library(ggplot2)
+library(dplyr)
 
 #load data obligasi
 data_obligasi <- read_excel("Data_Obligasi.xlsx")
@@ -33,7 +34,7 @@ fff$rating<-as.data.frame.array(data_obligasi[,5])
 fff<-as.data.frame(as.matrix(fff))
 
 #terus di GLM wae
-general_lin<-glm(fff$rating~
+general_lin<-lm(fff$rating~
                    fff$Dim.1+fff$Dim.2+fff$Dim.3+fff$Dim.4+fff$Dim.5)
 summary(general_lin)
 
@@ -42,9 +43,15 @@ predicted_category<-ceiling(general_lin[["fitted.values"]])
 df <- data.frame(data_obligasi,predicted_category)
 df<-df[order(-df$Cod_2), ]
 
+rownames(df) <- NULL
 #ggplot(df)
 
 ggplot(data=df,aes(x=Cod_2,y=predicted_category))+
+  geom_point(aes(y=predicted_category), colour="red")
+
+ggplot(data = mtcars, mapping = aes(x = wt, y = mpg, color = as.factor(cyl))) + 
   geom_point()
-+
-  labs(y="Transaction count")
+
+ggplot(data = df, mapping = aes(x = BONDS.NO., y = predicted_category, color = as.factor(predicted_category))) + 
+  geom_point()
+
