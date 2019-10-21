@@ -54,12 +54,6 @@ rownames(df) <- NULL
 
 #ggplot(df)
 
-ggplot(data=df,aes(x=Cod_2,y=predicted_category))+
-  geom_point(aes(y=predicted_category), colour="red")
-
-ggplot(data = mtcars, mapping = aes(x = wt, y = mpg, color = as.factor(cyl))) + 
-  geom_point()
-
 ggg<-filter(df,Cod_2==5)
 ggplot(data = df, mapping = aes(x = BONDS.NO., y = predicted_category, 
                                 color = as.factor(Cod_2))) + 
