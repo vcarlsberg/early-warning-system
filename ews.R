@@ -35,6 +35,7 @@ fff<-as.data.frame(as.matrix(fff))
 
 #terus di GLM wae
 general_lin<-glm(rating ~ Dim.1 + Dim.2 + Dim.3+Dim.4+Dim.5+Dim.6, data = fff)
+predict(general_lin, type="response")
 
 summary(general_lin)
 
