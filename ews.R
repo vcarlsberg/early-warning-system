@@ -42,7 +42,7 @@ summary(general_lin)
 predicted_category<-ceiling(general_lin[["fitted.values"]])
 
 df <- data.frame(data_obligasi,predicted_category)
-df<-df[order(-df$Rating), ]
+df<-df[order(df$Rating), ]
 df<-data.frame(df,c(1:40))
 
 rownames(df) <- NULL
@@ -58,9 +58,14 @@ rownames(df) <- NULL
 #   geom_point()
 # ggg<-filter(df,Cod_2==5)
 
-ggplot(data = df, mapping = aes(x = as.factor(c.1.40.), y = predicted_category, color = as.factor(Rating))) + 
+ggplot()+
   theme(axis.text.x = element_text(angle = 90))+
   labs(x ="Nomor Obligasi", y = "Predicted Rating",color = "Initial Rating")+
-  geom_point(aes(size = 2))
+  scale_y_reverse()+
+  geom_point(data = df, 
+             mapping = aes(x = as.factor(c.1.40.), y = predicted_category, color = as.factor(Rating)), size = 3)
+#+
+ # geom_point(data = df, 
+  #           mapping = aes(x = as.factor(c.1.40.), y = 1, color = as.factor(Rating)), size = 3)
 
 #ffff<-
